@@ -1,6 +1,39 @@
 import React from 'react'
+import axios from 'axios';
 
 function Events() {
+  const [Events,setEvents] = React.useState([]);
+  const [searchTerm, setSearchTerm] = React.useState("");
+const getData =async (searchTerm)=>{
+  try{
+    if(!searchTerm){
+      const res =axios.get('http://localhost:8088/EventSearch')
+          .then((res)=>{
+            setEvents(res.data);
+            console.log(res.data);
+              }
+
+          )}
+      else{
+        const res=axios.get('http://localhost:8088/EventSearch?Event='+searchTerm)
+        .then((res)=>{
+          setEvents(res.data);
+          console.log(res.data);
+            } )
+      }
+    }
+    catch (err) {
+        console.log(err)}
+  }
+    React.useEffect(() => {
+        getData();
+        }, []);
+
+
+
+
+
+
   return (
     <div>
       
@@ -38,156 +71,21 @@ function Events() {
               <table className="table table-bordered table-responsive-md table-striped text-center">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Company Name</th>
-                    <th>Country</th>
-                    <th>City</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
                     <th>Sort</th>
                     <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td contentEditable="true">Gio Metric</td>
-                    <td contentEditable="true">25</td>
-                    <td contentEditable="true">Deepends</td>
-                    <td contentEditable="true">Spain</td>
-                    <td contentEditable="true">Madrid</td>
-                    <td>
-                      <span className="table-up">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-up"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                      <span className="table-down">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-down"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                    </td>
-                    <td>
-                      <span className="table-remove">
-                        <button
-                          type="button"
-                          className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                        >
-                          Remove
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td contentEditable="true">Manny Petty</td>
-                    <td contentEditable="true">45</td>
-                    <td contentEditable="true">Insectus</td>
-                    <td contentEditable="true">France</td>
-                    <td contentEditable="true">San Francisco</td>
-                    <td>
-                      <span className="table-up">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-up"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                      <span className="table-down">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-down"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                    </td>
-                    <td>
-                      <span className="table-remove">
-                        <button
-                          type="button"
-                          className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                        >
-                          Remove
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td contentEditable="true">Lucy Tania</td>
-                    <td contentEditable="true">26</td>
-                    <td contentEditable="true">Isotronic</td>
-                    <td contentEditable="true">Germany</td>
-                    <td contentEditable="true">Frankfurt am Main</td>
-                    <td>
-                      <span className="table-up">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-up"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                      <span className="table-down">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-down"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                    </td>
-                    <td>
-                      <span className="table-remove">
-                        <button
-                          type="button"
-                          className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                        >
-                          Remove
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="hide">
-                    <td contentEditable="true">Anna Mull</td>
-                    <td contentEditable="true">35</td>
-                    <td contentEditable="true">Portica</td>
-                    <td contentEditable="true">USA</td>
-                    <td contentEditable="true">Oregon</td>
-                    <td>
-                      <span className="table-up">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-up"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                      <span className="table-down">
-                        <a href="#!" className="indigo-text">
-                          <i
-                            className="fa fa-long-arrow-down"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </span>
-                    </td>
-                    <td>
-                      <span className="table-remove">
-                        <button
-                          type="button"
-                          className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                        >
-                          Remove
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
+                {Events.map((event, index) => (
+                    <tr key={index}>
+                      <td>{event.title}</td>
+                      <td>{event.description}</td>
+                      <td>{event.date}</td>
+                    </tr>
+                ))}
                 </tbody>
               </table>
             </div>
