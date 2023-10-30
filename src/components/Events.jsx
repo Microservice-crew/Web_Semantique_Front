@@ -15,7 +15,7 @@ const getData =async (searchTerm)=>{
 
           )}
       else{
-        const res=axios.get('http://localhost:8088/EventSearch?Event='+searchTerm)
+        const res=axios.get('http://localhost:8088/EventSearch?domain='+searchTerm)
         .then((res)=>{
           setEvents(res.data);
           console.log(res.data);
@@ -47,8 +47,7 @@ const getData =async (searchTerm)=>{
           style={{ height: 150 }}
         >
           <div className="inner-page-title">
-            <h3 className="text-white">Editable Table Page</h3>
-            <p className="text-white">lorem ipsum</p>
+            <h3 className="text-white">Events</h3>
           </div>
         </div>
       </div>
@@ -56,7 +55,7 @@ const getData =async (searchTerm)=>{
         <div className="iq-card">
           <div className="iq-card-header d-flex justify-content-between">
             <div className="iq-header-title">
-              <h4 className="card-title">Editable Table</h4>
+              <h4 className="card-title">List Events</h4>
             </div>
           </div>
           <div className="iq-card-body">
@@ -68,6 +67,15 @@ const getData =async (searchTerm)=>{
                   </i>
                 </button>
               </span>
+              <div className="search-input">
+                <input
+                    type="text"
+                    placeholder="Rechercher par titre d'événement"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button onClick={() => getData(searchTerm)}>Rechercher</button>
+              </div>
               <table className="table table-bordered table-responsive-md table-striped text-center">
                 <thead>
                   <tr>
