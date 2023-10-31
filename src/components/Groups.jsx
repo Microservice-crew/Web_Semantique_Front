@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Groups() {
-  const [groups, setGroups] = React.useState([]);
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [groups, setGroups] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getData = async (searchTerm) => {
     try {
@@ -12,16 +12,16 @@ function Groups() {
         setGroups(res.data);
         console.log(res.data);
       } else {
-        const res = await axios.get('http://localhost:8088/GroupSearch?name='+searchTerm);
+        const res = await axios.get('http://localhost:8088/GroupSearch?name=' + searchTerm);
         setGroups(res.data);
         console.log(res.data);
       }
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
@@ -31,10 +31,7 @@ function Groups() {
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
-              <div
-                className="iq-card position-relative inner-page-bg bg-primary"
-                style={{ height: 150 }}
-              >
+              <div className="iq-card position-relative inner-page-bg bg-primary" style={{ height: 150 }}>
                 <div className="inner-page-title">
                   <h3 className="text-white">Groups</h3>
                 </div>
@@ -76,13 +73,31 @@ function Groups() {
                         </tr>
                       </thead>
                       <tbody>
-                        {groups.map((group, index) => (
-                          <tr key={index}>
-                            <td>{group.name}</td>
-                            <td>{group.capacity}</td>
-                            <td>{group.date}</td>
-                          </tr>
-                        ))}
+   {groups.map((group, index) => (
+    <tr key={index}>
+        <td>{group.name}</td>
+        <td>{group.capacity}</td>
+        <td>{group.date}</td>
+        <td>
+        <button
+    onClick={async () => {
+        try {
+            await axios.delete(
+                `http://localhost:8088/GroupDelete/${group.id}`
+            );
+            getData();
+        } catch (err) {
+            console.log(err);
+        }
+    }}
+>
+    Remove
+</button>
+        </td>
+    </tr>
+))}
+
+
                       </tbody>
                     </table>
                   </div>
