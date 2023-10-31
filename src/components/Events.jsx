@@ -4,7 +4,6 @@ import axios from 'axios';
 function Events() {
   const [Events,setEvents] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
-
 const getData =async (searchTerm)=>{
   try{
     if(!searchTerm){
@@ -25,24 +24,6 @@ const getData =async (searchTerm)=>{
     }
     catch (err) {
         console.log(err)}
-  }
-
-  const deleteEvent = async (id) => {
-    try {
-      // Envoyer une requête de suppression au backend en fonction de l'ID
-      const res= axios.delete('http://localhost:8088/deleteEvent?id='+id)
-    .then((res)=>{
-      setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
-
-      console.log(res.data);
-      }
-    )
-      // Actualiser la liste des événements après suppression
-      getData(searchTerm);
-
-    } catch (err) {
-      console.log(err);
-    }
   }
     React.useEffect(() => {
         getData();
@@ -98,40 +79,21 @@ const getData =async (searchTerm)=>{
               <table className="table table-bordered table-responsive-md table-striped text-center">
                 <thead>
                   <tr>
-                    <th>Id</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Type</th>
-                    <th>Remove</th>
                     <th>Sort</th>
-
+                    <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
-                {Array.isArray(Events) ? (
-                Events.map((event, index) => (
+                {Events.map((event, index) => (
                     <tr key={index}>
-                      <td>{event.id}</td>
                       <td>{event.title}</td>
                       <td>{event.description}</td>
                       <td>{event.date}</td>
-                        <td>{event.type}</td>
-                      <td>
-                        <button
-                            className="btn btn-sm iq-bg-danger"
-                            onClick={() => deleteEvent(event.id)}
-                        >
-                          Remove
-                        </button>
-                      </td>
                     </tr>
-                ))
-                ) : (
-                    <tr>
-                      <td colSpan="7">Aucun événement trouvé.</td>
-                    </tr>
-                )}
+                ))}
                 </tbody>
               </table>
             </div>
