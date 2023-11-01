@@ -101,7 +101,7 @@ function UpdateEvent() {
                 /><br />
                 <label htmlFor="date">Date:</label>
                 <input
-                    type="datetime-local"
+                    type="text"
                     id="date"
                     name="date"
                     value={formData.date}
