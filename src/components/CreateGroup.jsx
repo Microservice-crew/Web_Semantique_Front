@@ -6,7 +6,7 @@ function CreateGroup() {
     const [name, setName] = useState('');
     const [capacity, setCapacity] = useState('');
     const [date, setDate] = useState('');
-   
+
     const handleCreateGroup = async () => {
         try {
             // Convert the date string to the desired format
@@ -17,7 +17,6 @@ function CreateGroup() {
                 name: name,
                 capacity: capacity,
                 date: formattedDate, // Use the formatted date
-              
             });
 
             // Check if the group was created successfully
@@ -32,28 +31,28 @@ function CreateGroup() {
     };
 
     return (
-        <div>
+        <div className="container mt-5">
             <h2>Create Group</h2>
             <form>
-                <div>
-                    <label>ID:</label>
-                    <input type="number" onChange={(e) => setId(e.target.value)} />
+                <div className="mb-3">
+                    <label className="form-label text-start">ID:</label>
+                    <input type="number" className="form-control" onChange={(e) => setId(e.target.value)} />
                 </div>
-                <div>
-                    <label>Name:</label>
-                    <input type="name" onChange={(e) => setName(e.target.value)} />
+                <div className="mb-3">
+                    <label className="form-label text-start">Name:</label>
+                    <input type="text" className="form-control" onChange={(e) => setName(e.target.value)} />
                 </div>
-                <div>
-                    <label>Capacity:</label>
-                    <input type="number" onChange={(e) => setCapacity(e.target.value)} />
+                <div className="mb-3">
+                    <label className="form-label text-start">Capacity:</label>
+                    <input type="number" className="form-control" onChange={(e) => setCapacity(e.target.value)} />
                 </div>
-                <div>
-                    <label>Date:</label>
-                    <input type="datetime-local" onChange={(e) => setDate(e.target.value)} />
+                <div className="mb-3">
+                    <label className="form-label text-start">Date:</label>
+                    <input type="datetime-local" className="form-control" onChange={(e) => setDate(e.target.value)} />
                     {/* Use the datetime-local input type to capture the date and time */}
                 </div>
-                
-                <button type="button" onClick={handleCreateGroup}>
+
+                <button type="button" className="btn btn-primary" onClick={handleCreateGroup}>
                     Create Group
                 </button>
             </form>
