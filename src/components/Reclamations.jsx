@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Reclamations() {
   const [Reclamations, setReclamations] = React.useState([]);
@@ -76,11 +77,14 @@ function Reclamations() {
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
                     <span className="table-add float-right mb-3 mr-2">
-                      <button className="btn btn-sm iq-bg-success">
+                      <Link
+                        to="/addNewReclamation"
+                        className="btn btn-sm iq-bg-success"
+                      >
                         <i className="ri-add-fill">
                           <span className="pl-1">Add New</span>
                         </i>
-                      </button>
+                      </Link>
                     </span>
                     <div className="search-input">
                       <input
