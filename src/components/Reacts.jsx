@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import {Link} from "react-router-dom";
 
 
 function Reacts() {
@@ -25,25 +26,44 @@ function Reacts() {
   };
 
 
-  const deleteReact = async (id) => {
+  // const deleteReact = async (id) => {
+  //   try {
+  //     if (id === undefined || id === null) {
+  //       console.error("ID non défini.");
+  //       return;
+  //     }
+  
+  //     // Envoyer une requête de suppression au backend en fonction de l'ID
+  //     const res = await axios.delete(`http://localhost:8088/deleteReact?id=${id}`);
+  //     setReacts((prevReacts) => prevReacts.filter((react) => react.id !== id));
+  //     console.log(res.data);
+  
+  //     // Actualiser la liste des réactions après suppression
+  //     getData(searchTerm);
+  //   } catch (err) {
+  //     console.error("Erreur lors de la suppression de la réaction :", err);
+  //   }
+  // };
+  
+  const deleteReact = async (title) => {
     try {
       // Envoyer une requête de suppression au backend en fonction de l'ID
-      const response = await axios.delete(`http://localhost:8088/deleteReact?id=${id}`);
-  
-      if (response.status === 200) {
-        // La suppression a réussi, mettez à jour la liste des réactions
-        setReacts((prevReacts) => prevReacts.filter((react) => react.id !== id));
-        console.log("Réaction supprimée avec succès.");
-      } else {
-        console.error("Erreur lors de la suppression de la réaction.");
-      }
-  
-      // Actualiser la liste des réactions après suppression
+      const res = axios
+        .delete("http://localhost:8088/deleteReact?title=" + title)
+        .then((res) => {
+          setReacts((prevReacts) =>
+          prevReacts.filter((react) => react.title !== title)
+          );
+
+          console.log(res.data);
+        });
+      // Actualiser la liste des événements après suppression
       getData(searchTerm);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
+  
   
   const generatePDF = () => {
     // Créez une nouvelle instance de jsPDF
@@ -121,13 +141,13 @@ function Reacts() {
                 </div>
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
-                    <span className="table-add float-right mb-3 mr-2">
-                      <button className="btn btn-sm iq-bg-success">
-                        <i className="ri-add-fill">
-                          <span className="pl-1">Add New</span>
-                        </i>
-                      </button>
-                    </span>
+                  <span className="table-add float-right mb-3 mr-2">
+               <Link to="/addNew" className="btn btn-sm iq-bg-success">
+            <i className="ri-add-fill">
+                <span className="pl-1">Add New</span>
+            </i>
+        </Link>
+        </span>
                     <div className="search-input">
                       <input
                         type="text"
@@ -140,6 +160,7 @@ function Reacts() {
                     <table className="table table-bordered table-responsive-md table-striped text-center">
                       <thead>
                         <tr>
+                        
                           <th>Avis</th>
                           <th>Nombre like</th>
                           <th>Nombre dislike</th>
@@ -151,36 +172,38 @@ function Reacts() {
                         {sortedReacts.length > 0
                           ? sortedReacts.map((react, index) => (
                               <tr key={index}>
+                              
                                 <td>{react.title}</td>
                                 <td>{react.nombrelike}</td>
                                 <td>{react.nombredislike}</td>
                                 <td>{react.date}</td>
                                 <td>
-                        <button
-                            className="btn btn-sm iq-bg-danger"
-                            onClick={() => deleteReact(react.id)}
-                        >
-                          Remove
-                        </button>
-                      </td>
+                              <button
+                                className="btn btn-sm iq-bg-danger"
+                                onClick={() => deleteReact(react.title)}
+                              >
+                                Remove
+                              </button>
+                            </td>
                                 {/* <td><button onClick={() => deleteReactByTitle(react.title)}>Supprimer</button>
 </td> */}
                               </tr>
                             ))
                           : Reacts.map((react, index) => (
                               <tr key={index}>
+                               
                                 <td>{react.title}</td>
                                 <td>{react.nombrelike}</td>
                                 <td>{react.nombredislike}</td>
                                 <td>{react.date}</td>
                                 <td>
-                        <button
-                            className="btn btn-sm iq-bg-danger"
-                            onClick={() => deleteReact(react.id)}
-                        >
-                          Remove
-                        </button>
-                      </td>
+                              <button
+                                className="btn btn-sm iq-bg-danger"
+                                onClick={() => deleteReact(react.title)}
+                              >
+                                Remove
+                              </button>
+                            </td>
                                 {/* <td><button onClick={() => deleteReactByTitle(react.title)}>Supprimer</button>
 </td> */}
                               </tr>

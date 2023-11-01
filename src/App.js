@@ -8,6 +8,7 @@ import Groups from './components/Groups';
 import Events from './components/Events';
 import Reclamations from './components/Reclamations';
 import Users from './components/Users';
+import CreateReact from './components/CreateReact';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/Events' element={<Events />} />
           <Route path='/Groups' element={<Groups />} />
           <Route path='/Reacts' element={<Reacts />} />
+          <Route path='/addNew' element={<CreateReact/>} />
           <Route path='/Reclamations' element={<Reclamations />} />
           <Route path='/Users' element={<Users />} />
           {/* Other routes here */}
