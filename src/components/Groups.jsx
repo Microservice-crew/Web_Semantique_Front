@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 function Groups() {
   const [groups, setGroups] = useState([]);
@@ -94,7 +95,7 @@ function Groups() {
                           <th>Name</th>
                           <th>Capacity</th>
                           <th>Date</th>
-                          <th>Sort</th>
+                          <th>Update</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
@@ -104,6 +105,11 @@ function Groups() {
         <td>{group.name}</td>
         <td>{group.capacity}</td>
         <td>{group.date}</td>
+        <td>
+                            <Link to={"/updateGroup/"+group.id} className="btn btn-sm iq-bg-warning">
+                            Update
+                            </Link>
+                        </td>
         <td>
                         <button
                             className="btn btn-sm iq-bg-danger"

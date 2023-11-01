@@ -9,7 +9,7 @@ import Events from './components/Events';
 import Reclamations from './components/Reclamations';
 import Users from './components/Users';
 import CreateGroup from "./components/CreateGroup";
-
+import UpdateGroup from "./components/UpdateGroup";
 function App() {
   return (
     <Router>
@@ -23,6 +23,8 @@ function App() {
           <Route path='/Reclamations' element={<Reclamations />} />
           <Route path='/Users' element={<Users />} />
           <Route path='/addGroup' element={<CreateGroup/>} />
+          <Route path='/updateGroup' element={<UpdateGroup/>} />
+
           {/* Other routes here */}
         </Routes>
       </div>
