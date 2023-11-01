@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios';
 import {Link} from "react-router-dom";
-
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 function Events() {
   const [Events,setEvents] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -50,7 +51,27 @@ const getData =async (searchTerm)=>{
     catch (err) {
         console.log(err)}
   }
+  const generatePDF = () => {
+    // Créez une nouvelle instance de jsPDF
+    const doc = new jsPDF();
 
+    // Définissez le titre du document PDF
+    doc.text("Liste Events :", 10, 10);
+
+    // Créez le tableau au format PDF
+    doc.autoTable({
+      head: [["title", "date", "description", "type"]],
+      body: Events.map((react) => [
+        react.title,
+        react.date,
+        react.description,
+        react.type,
+      ]),
+    });
+
+    // Enregistrez ou affichez le document PDF
+    doc.save("list_Events.pdf");
+  };
   const deleteEvent = async (id) => {
     try {
       // Envoyer une requête de suppression au backend en fonction de l'ID
@@ -190,6 +211,14 @@ const getData =async (searchTerm)=>{
                             Update
                             </Link>
                         </td>
+                      <td>
+                        <button
+                            className="btn btn-sm iq-bg-primary"
+                            onClick={generatePDF}
+                        >
+                          Imprimer PDF
+                        </button>
+                      </td>
                     </tr>
                 ))
                 ) : (
