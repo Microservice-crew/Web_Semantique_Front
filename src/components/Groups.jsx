@@ -21,6 +21,25 @@ function Groups() {
     }
   };
 
+  const deleteGroup = async (id) => {
+    try {
+      // Envoyer une requête de suppression au backend en fonction de l'ID
+      const res= axios.delete('http://localhost:8088/deleteGroup?id='+id)
+    .then((res)=>{
+      setGroups((prevGroups) => prevGroups.filter((group) => group.id !== id));
+
+      console.log(res.data);
+      }
+    )
+      // Actualiser la liste des groupes après suppression
+      getData(searchTerm);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+    
+
   useEffect(() => {
     getData();
   }, []);
@@ -79,21 +98,13 @@ function Groups() {
         <td>{group.capacity}</td>
         <td>{group.date}</td>
         <td>
-        <button
-    onClick={async () => {
-        try {
-            await axios.delete(
-                `http://localhost:8088/GroupDelete/${group.id}`
-            );
-            getData();
-        } catch (err) {
-            console.log(err);
-        }
-    }}
->
-    Remove
-</button>
-        </td>
+                        <button
+                            className="btn btn-sm iq-bg-danger"
+                            onClick={() => deleteGroup(group.id)}
+                        >
+                          Remove
+                        </button>
+                      </td>
     </tr>
 ))}
 
