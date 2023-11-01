@@ -5,19 +5,42 @@ import {Link} from "react-router-dom";
 function Events() {
   const [Events,setEvents] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [regexParam, setRegexParam] = React.useState("");
+  const [attribute, setAttribute] = React.useState("");
+    const [order, setOrder] = React.useState("");
+    const [orderBy, setOrderBy] = React.useState("");
+
+
 
 const getData =async (searchTerm)=>{
   try{
-    if(!searchTerm){
-      const res =axios.get('http://localhost:8088/EventSearch')
+    if(searchTerm&& (attribute==="")){
+      const res =axios.get('http://localhost:8088/EventSearch?domain='+searchTerm)
           .then((res)=>{
             setEvents(res.data);
             console.log(res.data);
               }
 
           )}
+      else if (regexParam && (attribute!=="")){
+        const res =axios.get('http://localhost:8088/EventSearch?regexParam='+regexParam+'&attribute='+attribute)
+            .then((res)=>{
+              setEvents(res.data);
+              console.log(res.data);
+                }
+
+            )}
+        else if (order && orderBy){
+            const res =axios.get('http://localhost:8088/EventSearch?Type='+order+'&orderBy='+orderBy)
+                .then((res)=>{
+                    setEvents(res.data);
+                    console.log(res.data);
+                    }
+
+                )
+    }
       else{
-        const res=axios.get('http://localhost:8088/EventSearch?domain='+searchTerm)
+        const res=axios.get('http://localhost:8088/EventSearch')
         .then((res)=>{
           setEvents(res.data);
           console.log(res.data);
@@ -87,15 +110,51 @@ const getData =async (searchTerm)=>{
             </i>
         </Link>
               </span>
-              <div className="search-input">
-                <input
-                    type="text"
-                    placeholder="Rechercher par titre d'événement"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <button onClick={() => getData(searchTerm)}>Rechercher</button>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search by event title"
+                        onKeyUp={(e) => {
+                          setSearchTerm(e.target.value);
+                          setRegexParam(e.target.value);
+                          getData(regexParam, searchTerm);
+                        }}
+                    />
+                    <select className="form-select" onChange={(e) => {setAttribute(e.target.value)}}>
+                      <option value="">Filter by</option>
+                      <option value="id">Id</option>
+                      <option value="title">Title</option>
+                      <option value="description">Description</option>
+                      <option value="date">Date</option>
+                      <option value="type">Type</option>
+                    </select>
+                    <button className="btn btn-primary" onClick={() => getData()}>Search</button>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="input-group mb-3">
+                    <span className="input-group-text">Sort by:</span>
+                    <select className="form-select" onChange={async (e) => {await setOrder(e.target.value);}}>
+                      <option value="">Choose</option>
+                      <option value="asc">ASC</option>
+                      <option value="desc">DESC</option>
+                    </select>
+                    <select className="form-select" onChange={(e) => {setOrderBy(e.target.value);}}>
+                      <option value="">Attribute</option>
+                      <option value="id">Id</option>
+                      <option value="title">Title</option>
+                      <option value="description">Description</option>
+                      <option value="date">Date</option>
+                      <option value="type">Type</option>
+                    </select>
+                    <button className="btn btn-primary" onClick={() => getData()}>Sort</button>
+                  </div>
+                </div>
               </div>
+
               <table className="table table-bordered table-responsive-md table-striped text-center">
                 <thead>
                   <tr>
