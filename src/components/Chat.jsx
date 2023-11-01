@@ -79,7 +79,6 @@ function Chat() {
                           <th>UserName Destination</th>
                           <th>Msg Chat</th>
                           <th>Date</th>
-                          <th>Sort</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
@@ -90,7 +89,6 @@ function Chat() {
                             <td>{verif.nomUserDes}</td>
                             <td>{verif.msgChat}</td>
                             <td>{verif.date}</td>
-                            <td></td>
                             <td>
                               <span className="table-remove">
                                 <button

@@ -82,7 +82,6 @@ function VerifUsers() {
                           <th>Phone</th>
                           <th>Age</th>
                           <th>Badge</th>
-                          <th>Sort</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
@@ -94,7 +93,6 @@ function VerifUsers() {
                             <td>{verif.phone}</td>
                             <td>{verif.age}</td>
                             <td>{verif.badge}</td>
-                            <td></td>
                             <td>
                               <span className="table-remove">
                                 <button
