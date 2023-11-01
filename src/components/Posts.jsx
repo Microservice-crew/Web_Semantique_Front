@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Posts() {
   const [Posts, setPosts] = React.useState([]);
@@ -73,6 +75,31 @@ function Posts() {
       console.log(err);
     }
   };
+
+  const generatePDF = () => {
+    // Créez une nouvelle instance de jsPDF
+    const doc = new jsPDF();
+
+    // Définissez le titre du document PDF
+    doc.text("Liste Posts :", 10, 10);
+
+    // Créez le tableau au format PDF
+    doc.autoTable({
+      head: [["nomUser", "title", "contenu", "date"]],
+      body: Posts.map((react) => [
+        react.nomUser,
+        react.title,
+        react.contenu,
+        react.date,
+      ]),
+    });
+
+    // Enregistrez ou affichez le document PDF
+    doc.save("list_Posts.pdf");
+  };
+
+  
+
   React.useEffect(() => {
     getData();
   }, []);
@@ -188,6 +215,7 @@ function Posts() {
                           <th>Date</th>
                           <th>Remove</th>
                           <th>Update</th>
+                          <th>PDF</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -213,6 +241,14 @@ function Posts() {
                               >
                                 Update
                               </Link>
+                            </td>
+                            <td>
+                              <button
+                                className="btn btn-sm iq-bg-primary"
+                                onClick={generatePDF}
+                              >
+                                Imprimer PDF
+                              </button>
                             </td>
                           </tr>
                         ))}

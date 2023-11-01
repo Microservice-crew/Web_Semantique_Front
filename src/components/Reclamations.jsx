@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Reclamations() {
   const [Reclamations, setReclamations] = React.useState([]);
@@ -48,6 +50,26 @@ function Reclamations() {
     }
   };
 
+  const generatePDF = () => {
+    // Créez une nouvelle instance de jsPDF
+    const doc = new jsPDF();
+
+    // Définissez le titre du document PDF
+    doc.text("Liste Reclamations :", 10, 10);
+
+    // Créez le tableau au format PDF
+    doc.autoTable({
+      head: [["title", "description", "date"]],
+      body: Reclamations.map((react) => [
+        react.title,
+        react.description,
+        react.date,
+      ]),
+    });
+
+    // Enregistrez ou affichez le document PDF
+    doc.save("list_Reclamations.pdf");
+  };
   React.useEffect(() => {
     getData();
   }, []);
@@ -104,8 +126,8 @@ function Reclamations() {
                           <th>Title</th>
                           <th>Description</th>
                           <th>Date</th>
-                          <th>Sort</th>
                           <th>Remove</th>
+                          <th>PDF</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -114,13 +136,21 @@ function Reclamations() {
                             <td>{reclam.title}</td>
                             <td>{reclam.description}</td>
                             <td>{reclam.date}</td>
-                            <td></td>
+
                             <td>
                               <button
                                 className="btn btn-sm iq-bg-danger"
                                 onClick={() => deleteReclamation(reclam.title)}
                               >
                                 Remove
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                className="btn btn-sm iq-bg-primary"
+                                onClick={generatePDF}
+                              >
+                                Imprimer PDF
                               </button>
                             </td>
                           </tr>

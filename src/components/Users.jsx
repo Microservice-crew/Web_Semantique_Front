@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Users() {
   const [Users, setUsers] = React.useState([]);
@@ -44,6 +46,28 @@ function Users() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const generatePDF = () => {
+    // Créez une nouvelle instance de jsPDF
+    const doc = new jsPDF();
+
+    // Définissez le titre du document PDF
+    doc.text("Liste Users :", 10, 10);
+
+    // Créez le tableau au format PDF
+    doc.autoTable({
+      head: [["nomUser", "email", "title", "age"]],
+      body: Users.map((react) => [
+        react.nomUser,
+        react.email,
+        react.title,
+        react.age,
+      ]),
+    });
+
+    // Enregistrez ou affichez le document PDF
+    doc.save("list_Users.pdf");
   };
 
   React.useEffect(() => {
@@ -103,8 +127,8 @@ function Users() {
                           <th>Email</th>
                           <th>Title</th>
                           <th>Age</th>
-                          <th>Sort</th>
                           <th>Remove</th>
+                          <th>PDF</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -114,13 +138,20 @@ function Users() {
                             <td>{verif.email}</td>
                             <td>{verif.title}</td>
                             <td>{verif.age}</td>
-                            <td></td>
                             <td>
                               <button
                                 className="btn btn-sm iq-bg-danger"
                                 onClick={() => deleteUser(verif.title)}
                               >
                                 Remove
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                className="btn btn-sm iq-bg-primary"
+                                onClick={generatePDF}
+                              >
+                                Imprimer PDF
                               </button>
                             </td>
                           </tr>
