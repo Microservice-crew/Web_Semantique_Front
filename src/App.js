@@ -8,6 +8,7 @@ import Groups from './components/Groups';
 import Events from './components/Events';
 import Reclamations from './components/Reclamations';
 import Users from './components/Users';
+import CreateGroup from "./components/CreateGroup";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/Reacts' element={<Reacts />} />
           <Route path='/Reclamations' element={<Reclamations />} />
           <Route path='/Users' element={<Users />} />
+          <Route path='/addGroup' element={<CreateGroup/>} />
           {/* Other routes here */}
         </Routes>
       </div>

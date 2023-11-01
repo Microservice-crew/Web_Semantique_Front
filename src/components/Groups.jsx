@@ -56,6 +56,7 @@ function Groups() {
                 </div>
               </div>
             </div>
+            
             <div className="col-sm-12">
               <div className="iq-card">
                 <div className="iq-card-header d-flex justify-content-between">
@@ -66,12 +67,18 @@ function Groups() {
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
                     <span className="table-add float-right mb-3 mr-2">
-                      <button className="btn btn-sm iq-bg-success">
-                        <i className="ri-add-fill">
-                          <span className="pl-1">Add New</span>
-                        </i>
-                      </button>
-                    </span>
+                    
+  <button
+    className="btn btn-sm iq-bg-success"
+    onClick={() => {
+      window.location.href = "/addGroup";
+    }}
+  >
+    <i className="ri-add-fill"></i>
+    <span className="pl-1">Add New</span>
+  </button>
+</span>
+             
                     <div className="search-input">
                       <input
                         type="text"
