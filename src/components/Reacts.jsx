@@ -142,7 +142,7 @@ function Reacts() {
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
                   <span className="table-add float-right mb-3 mr-2">
-               <Link to="/addNew" className="btn btn-sm iq-bg-success">
+               <Link to="/addNewReact" className="btn btn-sm iq-bg-success">
             <i className="ri-add-fill">
                 <span className="pl-1">Add New</span>
             </i>

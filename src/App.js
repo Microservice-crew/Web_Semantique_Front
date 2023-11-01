@@ -24,6 +24,7 @@ import UpdateEvent from "./components/UpdateEvent";
 
 import CreateGroup from "./components/CreateGroup";
 import UpdateGroup from "./components/UpdateGroup";
+import CreateReact from "./components/CreateReact";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path='/updateGroup' element={<UpdateGroup/>} />
           <Route path="/Events" element={<Events />} />
               <Route path='/addNew' element={<CreateEvent/>} />
+          <Route path='/addNewReact' element={<CreateReact/>} />
           <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Reacts" element={<Reacts />} />
