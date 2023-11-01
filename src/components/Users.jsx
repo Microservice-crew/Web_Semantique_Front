@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Users() {
   const [Users, setUsers] = React.useState([]);
@@ -25,6 +26,26 @@ function Users() {
       console.log(err);
     }
   };
+
+  const deleteUser = async (title) => {
+    try {
+      // Envoyer une requête de suppression au backend en fonction de l'ID
+      const res = axios
+        .delete("http://localhost:8088/deleteUser?title=" + title)
+        .then((res) => {
+          setUsers((prevUsers) =>
+            prevUsers.filter((user) => user.title !== title)
+          );
+
+          console.log(res.data);
+        });
+      // Actualiser la liste des événements après suppression
+      getData(searchTerm);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   React.useEffect(() => {
     getData();
   }, []);
@@ -54,11 +75,14 @@ function Users() {
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
                     <span className="table-add float-right mb-3 mr-2">
-                      <button className="btn btn-sm iq-bg-success">
+                      <Link
+                        to="/addNewUser"
+                        className="btn btn-sm iq-bg-success"
+                      >
                         <i className="ri-add-fill">
                           <span className="pl-1">Add New</span>
                         </i>
-                      </button>
+                      </Link>
                     </span>
                     <div className="search-input">
                       <input
@@ -92,14 +116,12 @@ function Users() {
                             <td>{verif.age}</td>
                             <td></td>
                             <td>
-                              <span className="table-remove">
-                                <button
-                                  type="button"
-                                  className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                                >
-                                  Remove
-                                </button>
-                              </span>
+                              <button
+                                className="btn btn-sm iq-bg-danger"
+                                onClick={() => deleteUser(verif.title)}
+                              >
+                                Remove
+                              </button>
                             </td>
                           </tr>
                         ))}

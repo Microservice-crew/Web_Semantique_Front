@@ -589,8 +589,10 @@ function Navbar() {
           </div>
         </div>
       </div>
+
       {/* Wrapper END */}
       {/* Footer */}
+
       <footer className="bg-white iq-footer">
         <div className="container-fluid">
           <div className="row">
