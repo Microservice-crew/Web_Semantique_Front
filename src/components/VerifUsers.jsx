@@ -8,20 +8,20 @@ function VerifUsers() {
     try {
       if (!searchTerm) {
         const res = axios
-          .get("http://localhost:8088/verifutilisateurSearch")
-          .then((res) => {
-            setVerifUsers(res.data);
-            console.log(res.data);
-          });
+            .get("http://localhost:8088/verifutilisateurSearch")
+            .then((res) => {
+              setVerifUsers(res.data);
+              console.log(res.data);
+            });
       } else {
         const res = axios
-          .get(
-            "http://localhost:8088/verifutilisateurSearch?domain=" + searchTerm
-          )
-          .then((res) => {
-            setVerifUsers(res.data);
-            console.log(res.data);
-          });
+            .get(
+                "http://localhost:8088/verifutilisateurSearch?domain=" + searchTerm
+            )
+            .then((res) => {
+              setVerifUsers(res.data);
+              console.log(res.data);
+            });
       }
     } catch (err) {
       console.log(err);
@@ -32,29 +32,29 @@ function VerifUsers() {
   }, []);
 
   return (
-    <div>
-      <div id="content-page" className="content-page">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <div
-                className="iq-card position-relative inner-page-bg bg-primary"
-                style={{ height: 150 }}
-              >
-                <div className="inner-page-title">
-                  <h3 className="text-white">Users Verified</h3>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12">
-              <div className="iq-card">
-                <div className="iq-card-header d-flex justify-content-between">
-                  <div className="iq-header-title">
-                    <h4 className="card-title">List Users Verified</h4>
+      <div>
+        <div id="content-page" className="content-page">
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-12">
+                <div
+                    className="iq-card position-relative inner-page-bg bg-primary"
+                    style={{ height: 150 }}
+                >
+                  <div className="inner-page-title">
+                    <h3 className="text-white">Users Verified</h3>
                   </div>
                 </div>
-                <div className="iq-card-body">
-                  <div id="table" className="table-editable">
+              </div>
+              <div className="col-sm-12">
+                <div className="iq-card">
+                  <div className="iq-card-header d-flex justify-content-between">
+                    <div className="iq-header-title">
+                      <h4 className="card-title">List Users Verified</h4>
+                    </div>
+                  </div>
+                  <div className="iq-card-body">
+                    <div id="table" className="table-editable">
                     <span className="table-add float-right mb-3 mr-2">
                       <button className="btn btn-sm iq-bg-success">
                         <i className="ri-add-fill">
@@ -62,53 +62,52 @@ function VerifUsers() {
                         </i>
                       </button>
                     </span>
-                    <div className="search-input">
-                      <input
-                        type="text"
-                        placeholder="Rechercher par Nom Users"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <button onClick={() => getData(searchTerm)}>
-                        Rechercher
-                      </button>
-                    </div>
-                    <table className="table table-bordered table-responsive-md table-striped text-center">
-                      <thead>
+                      <div className="search-input">
+                        <input
+                            type="text"
+                            placeholder="Rechercher par Nom Users"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onClick={() => getData(searchTerm)}>
+                          Rechercher
+                        </button>
+                      </div>
+                      <table className="table table-bordered table-responsive-md table-striped text-center">
+                        <thead>
                         <tr>
                           <th>UserName</th>
                           <th>Email</th>
                           <th>Phone</th>
                           <th>Age</th>
                           <th>Badge</th>
-                          <th>Sort</th>
                           <th>Remove</th>
                         </tr>
-                      </thead>
-                      <tbody>
+                        </thead>
+                        <tbody>
                         {VerifUsers.map((verif, index) => (
-                          <tr key={index}>
-                            <td>{verif.nomUser}</td>
-                            <td>{verif.email}</td>
-                            <td>{verif.phone}</td>
-                            <td>{verif.age}</td>
-                            <td>{verif.badge}</td>
-                            <td></td>
-                            <td>
+                            <tr key={index}>
+                              <td>{verif.nomUser}</td>
+                              <td>{verif.email}</td>
+                              <td>{verif.phone}</td>
+                              <td>{verif.age}</td>
+                              <td>{verif.badge}</td>
+                              <td>
                               <span className="table-remove">
                                 <button
-                                  type="button"
-                                  className="btn iq-bg-danger btn-rounded btn-sm my-0"
+                                    type="button"
+                                    className="btn iq-bg-danger btn-rounded btn-sm my-0"
                                 >
                                   Remove
                                 </button>
                               </span>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
                         ))}
-                      </tbody>
-                    </table>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -116,7 +115,6 @@ function VerifUsers() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
