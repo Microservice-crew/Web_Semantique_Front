@@ -25,32 +25,32 @@ import UpdateEvent from "./components/UpdateEvent";
 
 function App() {
   return (
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Routes>
-            {" "}
-            {/* Utilize the Routes component to define your routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/Posts" element={<Posts />} />
-            <Route path="/addNewPost" element={<CreatePost />} />
-            <Route path="/updatePost/:id" element={<UpdatePost />} />
-            <Route path="/Events" element={<Events />} />
-            <Route path='/addNew' element={<CreateEvent/>} />
-            <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
-            <Route path="/Groups" element={<Groups />} />
-            <Route path="/Reacts" element={<Reacts />} />
-            <Route path="/Reclamations" element={<Reclamations />} />
-            <Route path="/addNewReclamation" element={<CreateReclamation />} />
-            <Route path="/Users" element={<Users />} />
-            <Route path="/addNewUser" element={<CreateUser />} />
-            <Route path="/VerifUsers" element={<VerifUsers />} />
-            <Route path="/Chat" element={<Chat />} />
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          {" "}
+          {/* Utilize the Routes component to define your routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/Posts" element={<Posts />} />
+          <Route path="/addNewPost" element={<CreatePost />} />
+          <Route path="/updatePost/:id" element={<UpdatePost />} />
+          <Route path="/Events" element={<Events />} />
+              <Route path='/addNew' element={<CreateEvent/>} />
+          <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
+          <Route path="/Groups" element={<Groups />} />
+          <Route path="/Reacts" element={<Reacts />} />
+          <Route path="/Reclamations" element={<Reclamations />} />
+          <Route path="/addNewReclamation" element={<CreateReclamation />} />
+          <Route path="/Users" element={<Users />} />
+          <Route path="/addNewUser" element={<CreateUser />} />
+          <Route path="/VerifUsers" element={<VerifUsers />} />
+          <Route path="/Chat" element={<Chat />} />
 
-            {/* Other routes here */}
-          </Routes>
-        </div>
-      </Router>
+          {/* Other routes here */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
