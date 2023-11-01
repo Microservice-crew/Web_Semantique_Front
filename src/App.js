@@ -8,6 +8,8 @@ import Groups from './components/Groups';
 import Events from './components/Events';
 import Reclamations from './components/Reclamations';
 import Users from './components/Users';
+import CreateEvent from "./components/CreateEvent";
+import UpdateEvent from "./components/UpdateEvent";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Navbar />
         <Routes> {/* Utilize the Routes component to define your routes */}
           <Route path='/Posts' element={<Posts />} />
+          <Route path='/addNew' element={<CreateEvent/>} />
+          <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
           <Route path='/Events' element={<Events />} />
           <Route path='/Groups' element={<Groups />} />
           <Route path='/Reacts' element={<Reacts />} />

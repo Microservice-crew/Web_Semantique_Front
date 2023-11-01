@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 function Events() {
   const [Events,setEvents] = React.useState([]);
@@ -80,11 +81,11 @@ const getData =async (searchTerm)=>{
           <div className="iq-card-body">
             <div id="table" className="table-editable">
               <span className="table-add float-right mb-3 mr-2">
-                <button className="btn btn-sm iq-bg-success">
-                  <i className="ri-add-fill">
-                    <span className="pl-1">Add New</span>
-                  </i>
-                </button>
+               <Link to="/addNew" className="btn btn-sm iq-bg-success">
+            <i className="ri-add-fill">
+                <span className="pl-1">Add New</span>
+            </i>
+        </Link>
               </span>
               <div className="search-input">
                 <input
@@ -104,7 +105,7 @@ const getData =async (searchTerm)=>{
                     <th>Date</th>
                     <th>Type</th>
                     <th>Remove</th>
-                    <th>Sort</th>
+                    <th>Update</th>
 
                   </tr>
                 </thead>
@@ -125,6 +126,11 @@ const getData =async (searchTerm)=>{
                           Remove
                         </button>
                       </td>
+                        <td>
+                            <Link to={"/updateEvent/"+event.id} className="btn btn-sm iq-bg-warning">
+                            Update
+                            </Link>
+                        </td>
                     </tr>
                 ))
                 ) : (
