@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
@@ -7,6 +7,8 @@ import "jspdf-autotable";
 function Users() {
   const [Users, setUsers] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortedUsers, setSortedUsers] = useState([]);
   const getData = async (searchTerm) => {
     try {
       if (!searchTerm) {
@@ -70,6 +72,18 @@ function Users() {
     doc.save("list_Users.pdf");
   };
 
+  const sortUsersByAge = () => {
+    const sorted = [...Users];
+    sorted.sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.age - b.age;
+      } else {
+        return b.age - a.age;
+      }
+    });
+    setSortedUsers(sorted);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
   React.useEffect(() => {
     getData();
   }, []);
@@ -129,33 +143,75 @@ function Users() {
                           <th>Age</th>
                           <th>Remove</th>
                           <th>PDF</th>
+                          <th>Sort</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {Users.map((verif, index) => (
-                          <tr key={index}>
-                            <td>{verif.nomUser}</td>
-                            <td>{verif.email}</td>
-                            <td>{verif.title}</td>
-                            <td>{verif.age}</td>
-                            <td>
-                              <button
-                                className="btn btn-sm iq-bg-danger"
-                                onClick={() => deleteUser(verif.title)}
-                              >
-                                Remove
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                className="btn btn-sm iq-bg-primary"
-                                onClick={generatePDF}
-                              >
-                                Imprimer PDF
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                        {sortedUsers.length > 0
+                          ? sortedUsers.map((verif, index) => (
+                              <tr key={index}>
+                                <td>{verif.nomUser}</td>
+                                <td>{verif.email}</td>
+                                <td>{verif.title}</td>
+                                <td>{verif.age}</td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-danger"
+                                    onClick={() => deleteUser(verif.title)}
+                                  >
+                                    Remove
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-primary"
+                                    onClick={generatePDF}
+                                  >
+                                    Imprimer PDF
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-primary"
+                                    onClick={sortUsersByAge}
+                                  >
+                                    Trier par age
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          : Users.map((verif, index) => (
+                              <tr key={index}>
+                                <td>{verif.nomUser}</td>
+                                <td>{verif.email}</td>
+                                <td>{verif.title}</td>
+                                <td>{verif.age}</td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-danger"
+                                    onClick={() => deleteUser(verif.title)}
+                                  >
+                                    Remove
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-primary"
+                                    onClick={generatePDF}
+                                  >
+                                    Imprimer PDF
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm iq-bg-primary"
+                                    onClick={sortUsersByAge}
+                                  >
+                                    Trier par age
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
                       </tbody>
                     </table>
                   </div>
