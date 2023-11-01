@@ -10,6 +10,7 @@ import Reclamations from "./components/Reclamations";
 import Users from "./components/Users";
 import VerifUsers from "./components/VerifUsers";
 import Chat from "./components/Chat";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           {" "}
           {/* Utilize the Routes component to define your routes */}
+          <Route path="/" element={<Home />} />
           <Route path="/Posts" element={<Posts />} />
           <Route path="/Events" element={<Events />} />
           <Route path="/Groups" element={<Groups />} />

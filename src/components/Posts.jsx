@@ -25,6 +25,24 @@ function Posts() {
       console.log(err);
     }
   };
+  const deletePost = async (title) => {
+    try {
+      // Envoyer une requête de suppression au backend en fonction de l'ID
+      const res = axios
+        .delete("http://localhost:8088/deletePost?title=" + title)
+        .then((res) => {
+          setPosts((prevPosts) =>
+            prevPosts.filter((post) => post.title !== title)
+          );
+
+          console.log(res.data);
+        });
+      // Actualiser la liste des événements après suppression
+      getData(searchTerm);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   React.useEffect(() => {
     getData();
   }, []);
@@ -79,28 +97,27 @@ function Posts() {
                           <th>Title</th>
                           <th>Contenu</th>
                           <th>Date</th>
-                          <th>Sort</th>
                           <th>Remove</th>
+                          <th>Sort</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {Posts.map((event, index) => (
+                        {Posts.map((post, index) => (
                           <tr key={index}>
-                            <td>{event.nomUser}</td>
-                            <td>{event.title}</td>
-                            <td>{event.contenu}</td>
-                            <td>{event.date}</td>
-                            <td></td>
+                            <td>{post.nomUser}</td>
+                            <td>{post.title}</td>
+                            <td>{post.contenu}</td>
+                            <td>{post.date}</td>
+
                             <td>
-                              <span className="table-remove">
-                                <button
-                                  type="button"
-                                  className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                                >
-                                  Remove
-                                </button>
-                              </span>
+                              <button
+                                className="btn btn-sm iq-bg-danger"
+                                onClick={() => deletePost(post.title)}
+                              >
+                                Remove
+                              </button>
                             </td>
+                            <td></td>
                           </tr>
                         ))}
                       </tbody>

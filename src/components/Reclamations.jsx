@@ -25,6 +25,28 @@ function Reclamations() {
       console.log(err);
     }
   };
+
+  const deleteReclamation = async (title) => {
+    try {
+      // Envoyer une requête de suppression au backend en fonction de l'ID
+      const res = axios
+        .delete("http://localhost:8088/deleteReclamation?title=" + title)
+        .then((res) => {
+          setReclamations((prevReclamations) =>
+            prevReclamations.filter(
+              (reclamation) => reclamation.title !== title
+            )
+          );
+
+          console.log(res.data);
+        });
+      // Actualiser la liste des événements après suppression
+      getData(searchTerm);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   React.useEffect(() => {
     getData();
   }, []);
@@ -83,21 +105,19 @@ function Reclamations() {
                         </tr>
                       </thead>
                       <tbody>
-                        {Reclamations.map((event, index) => (
+                        {Reclamations.map((reclam, index) => (
                           <tr key={index}>
-                            <td>{event.title}</td>
-                            <td>{event.description}</td>
-                            <td>{event.date}</td>
+                            <td>{reclam.title}</td>
+                            <td>{reclam.description}</td>
+                            <td>{reclam.date}</td>
                             <td></td>
                             <td>
-                              <span className="table-remove">
-                                <button
-                                  type="button"
-                                  className="btn iq-bg-danger btn-rounded btn-sm my-0"
-                                >
-                                  Remove
-                                </button>
-                              </span>
+                              <button
+                                className="btn btn-sm iq-bg-danger"
+                                onClick={() => deleteReclamation(reclam.title)}
+                              >
+                                Remove
+                              </button>
                             </td>
                           </tr>
                         ))}
