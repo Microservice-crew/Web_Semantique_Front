@@ -1,23 +1,23 @@
 import React from "react";
 import axios from "axios";
 
-function Posts() {
-  const [Posts, setPosts] = React.useState([]);
+function Chat() {
+  const [Chat, setChat] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
   const getData = async (searchTerm) => {
     try {
       if (!searchTerm) {
         const res = axios
-          .get("http://localhost:8088/PostSearch")
+          .get("http://localhost:8088/msgsSearch")
           .then((res) => {
-            setPosts(res.data);
+            setChat(res.data);
             console.log(res.data);
           });
       } else {
         const res = axios
-          .get("http://localhost:8088/PostSearch?domain=" + searchTerm)
+          .get("http://localhost:8088/msgsSearch?domain=" + searchTerm)
           .then((res) => {
-            setPosts(res.data);
+            setChat(res.data);
             console.log(res.data);
           });
       }
@@ -40,7 +40,7 @@ function Posts() {
                 style={{ height: 150 }}
               >
                 <div className="inner-page-title">
-                  <h3 className="text-white">Posts</h3>
+                  <h3 className="text-white">Messages</h3>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@ function Posts() {
               <div className="iq-card">
                 <div className="iq-card-header d-flex justify-content-between">
                   <div className="iq-header-title">
-                    <h4 className="card-title">List Posts</h4>
+                    <h4 className="card-title">List Messages</h4>
                   </div>
                 </div>
                 <div className="iq-card-body">
@@ -63,7 +63,7 @@ function Posts() {
                     <div className="search-input">
                       <input
                         type="text"
-                        placeholder="Rechercher par titre Post"
+                        placeholder="Rechercher par Nom Users"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -75,21 +75,21 @@ function Posts() {
                     <table className="table table-bordered table-responsive-md table-striped text-center">
                       <thead>
                         <tr>
-                          <th>Nom User</th>
-                          <th>Title</th>
-                          <th>Contenu</th>
+                          <th>UserName</th>
+                          <th>UserName Destination</th>
+                          <th>Msg Chat</th>
                           <th>Date</th>
                           <th>Sort</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {Posts.map((event, index) => (
+                        {Chat.map((verif, index) => (
                           <tr key={index}>
-                            <td>{event.nomUser}</td>
-                            <td>{event.title}</td>
-                            <td>{event.contenu}</td>
-                            <td>{event.date}</td>
+                            <td>{verif.nomUser}</td>
+                            <td>{verif.nomUserDes}</td>
+                            <td>{verif.msgChat}</td>
+                            <td>{verif.date}</td>
                             <td></td>
                             <td>
                               <span className="table-remove">
@@ -116,4 +116,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default Chat;
