@@ -1,26 +1,23 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 
-function Users() {
-  const [Users, setUsers] = React.useState([]);
+function Chat() {
+  const [Chat, setChat] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
   const getData = async (searchTerm) => {
     try {
       if (!searchTerm) {
         const res = axios
-          .get("http://localhost:8088/utilisateurSearch")
+          .get("http://localhost:8088/msgsSearch")
           .then((res) => {
-            setUsers(res.data);
+            setChat(res.data);
             console.log(res.data);
           });
       } else {
         const res = axios
-          .get("http://localhost:8088/utilisateurSearch?domain=" + searchTerm)
+          .get("http://localhost:8088/msgsSearch?domain=" + searchTerm)
           .then((res) => {
-            setUsers(res.data);
+            setChat(res.data);
             console.log(res.data);
           });
       }
@@ -28,48 +25,6 @@ function Users() {
       console.log(err);
     }
   };
-
-  const deleteUser = async (title) => {
-    try {
-      // Envoyer une requête de suppression au backend en fonction de l'ID
-      const res = axios
-        .delete("http://localhost:8088/deleteUser?title=" + title)
-        .then((res) => {
-          setUsers((prevUsers) =>
-            prevUsers.filter((user) => user.title !== title)
-          );
-
-          console.log(res.data);
-        });
-      // Actualiser la liste des événements après suppression
-      getData(searchTerm);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const generatePDF = () => {
-    // Créez une nouvelle instance de jsPDF
-    const doc = new jsPDF();
-
-    // Définissez le titre du document PDF
-    doc.text("Liste Users :", 10, 10);
-
-    // Créez le tableau au format PDF
-    doc.autoTable({
-      head: [["nomUser", "email", "title", "age"]],
-      body: Users.map((react) => [
-        react.nomUser,
-        react.email,
-        react.title,
-        react.age,
-      ]),
-    });
-
-    // Enregistrez ou affichez le document PDF
-    doc.save("list_Users.pdf");
-  };
-
   React.useEffect(() => {
     getData();
   }, []);
@@ -85,7 +40,7 @@ function Users() {
                 style={{ height: 150 }}
               >
                 <div className="inner-page-title">
-                  <h3 className="text-white">Users</h3>
+                  <h3 className="text-white">Messages</h3>
                 </div>
               </div>
             </div>
@@ -93,25 +48,22 @@ function Users() {
               <div className="iq-card">
                 <div className="iq-card-header d-flex justify-content-between">
                   <div className="iq-header-title">
-                    <h4 className="card-title">List Users</h4>
+                    <h4 className="card-title">List Messages</h4>
                   </div>
                 </div>
                 <div className="iq-card-body">
                   <div id="table" className="table-editable">
                     <span className="table-add float-right mb-3 mr-2">
-                      <Link
-                        to="/addNewUser"
-                        className="btn btn-sm iq-bg-success"
-                      >
+                      <button className="btn btn-sm iq-bg-success">
                         <i className="ri-add-fill">
                           <span className="pl-1">Add New</span>
                         </i>
-                      </Link>
+                      </button>
                     </span>
                     <div className="search-input">
                       <input
                         type="text"
-                        placeholder="Rechercher par Nom Userx"
+                        placeholder="Rechercher par Nom Users"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -124,35 +76,28 @@ function Users() {
                       <thead>
                         <tr>
                           <th>UserName</th>
-                          <th>Email</th>
-                          <th>Title</th>
-                          <th>Age</th>
+                          <th>UserName Destination</th>
+                          <th>Msg Chat</th>
+                          <th>Date</th>
                           <th>Remove</th>
-                          <th>PDF</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {Users.map((verif, index) => (
+                        {Chat.map((verif, index) => (
                           <tr key={index}>
                             <td>{verif.nomUser}</td>
-                            <td>{verif.email}</td>
-                            <td>{verif.title}</td>
-                            <td>{verif.age}</td>
+                            <td>{verif.nomUserDes}</td>
+                            <td>{verif.msgChat}</td>
+                            <td>{verif.date}</td>
                             <td>
-                              <button
-                                className="btn btn-sm iq-bg-danger"
-                                onClick={() => deleteUser(verif.title)}
-                              >
-                                Remove
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                className="btn btn-sm iq-bg-primary"
-                                onClick={generatePDF}
-                              >
-                                Imprimer PDF
-                              </button>
+                              <span className="table-remove">
+                                <button
+                                  type="button"
+                                  className="btn iq-bg-danger btn-rounded btn-sm my-0"
+                                >
+                                  Remove
+                                </button>
+                              </span>
                             </td>
                           </tr>
                         ))}
@@ -169,4 +114,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Chat;
