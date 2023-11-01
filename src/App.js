@@ -1,4 +1,5 @@
 
+
 import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -21,6 +22,8 @@ import CreateUser from "./components/CreateUser";
 import CreateEvent from "./components/CreateEvent";
 import UpdateEvent from "./components/UpdateEvent";
 
+import CreateGroup from "./components/CreateGroup";
+import UpdateGroup from "./components/UpdateGroup";
 
 
 function App() {
@@ -28,6 +31,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
+
         <Routes>
           {" "}
           {/* Utilize the Routes component to define your routes */}
@@ -35,6 +39,8 @@ function App() {
           <Route path="/Posts" element={<Posts />} />
           <Route path="/addNewPost" element={<CreatePost />} />
           <Route path="/updatePost/:id" element={<UpdatePost />} />
+               <Route path='/addGroup' element={<CreateGroup/>} />
+          <Route path='/updateGroup' element={<UpdateGroup/>} />
           <Route path="/Events" element={<Events />} />
               <Route path='/addNew' element={<CreateEvent/>} />
           <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
@@ -46,6 +52,7 @@ function App() {
           <Route path="/addNewUser" element={<CreateUser />} />
           <Route path="/VerifUsers" element={<VerifUsers />} />
           <Route path="/Chat" element={<Chat />} />
+
 
           {/* Other routes here */}
         </Routes>
