@@ -1,3 +1,4 @@
+
 import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -10,11 +11,17 @@ import Reclamations from "./components/Reclamations";
 import Users from "./components/Users";
 import VerifUsers from "./components/VerifUsers";
 import Chat from "./components/Chat";
+
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import UpdatePost from "./components/UpdatePost";
 import CreateReclamation from "./components/CreateReclamation";
 import CreateUser from "./components/CreateUser";
+
+import CreateEvent from "./components/CreateEvent";
+import UpdateEvent from "./components/UpdateEvent";
+
+
 
 function App() {
   return (
@@ -29,6 +36,8 @@ function App() {
           <Route path="/addNewPost" element={<CreatePost />} />
           <Route path="/updatePost/:id" element={<UpdatePost />} />
           <Route path="/Events" element={<Events />} />
+              <Route path='/addNew' element={<CreateEvent/>} />
+          <Route path='/updateEvent/:id' element={<UpdateEvent/>} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Reacts" element={<Reacts />} />
           <Route path="/Reclamations" element={<Reclamations />} />
@@ -37,6 +46,7 @@ function App() {
           <Route path="/addNewUser" element={<CreateUser />} />
           <Route path="/VerifUsers" element={<VerifUsers />} />
           <Route path="/Chat" element={<Chat />} />
+
           {/* Other routes here */}
         </Routes>
       </div>
