@@ -77,7 +77,11 @@ function CreateReact() {
           />
           {/* Use the datetime-local input type to capture the date and time */}
         </div>
-        <button type="button" onClick={handleCreateEvent}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleCreateEvent}
+        >
           Create React
         </button>
       </form>

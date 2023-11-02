@@ -87,7 +87,11 @@ function CreateUser() {
           />
           {/* Use the datetime-local input type to capture the date and time */}
         </div>
-        <button type="button" onClick={handleCreateUser}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleCreateUser}
+        >
           Create User
         </button>
       </form>

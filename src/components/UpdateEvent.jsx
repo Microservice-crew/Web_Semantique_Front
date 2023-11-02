@@ -67,66 +67,78 @@ function UpdateEvent() {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h1>Update Event</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="id">ID:</label>
-        <input
-          type="number"
-          id="id"
-          name="id"
-          value={formData.id}
-          onChange={handleInputChange}
-          disabled={true}
-          className="form-control"
-        />
+        <div className="mb-3">
+          <label htmlFor="id">ID:</label>
+          <input
+            type="number"
+            id="id"
+            name="id"
+            value={formData.id}
+            onChange={handleInputChange}
+            disabled={true}
+            className="form-control"
+          />
+        </div>
         <br />
-
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          required
-          className="form-control"
-        />
+        <div className="mb-3">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+            className="form-control"
+          />
+          <br />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+            className="form-control"
+          />
+        </div>
         <br />
-        <label htmlFor="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          required
-          className="form-control"
-        />
+        <div className="mb-3">
+          <label htmlFor="date">Date:</label>
+          <input
+            type="text"
+            id="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
         <br />
-        <label htmlFor="date">Date:</label>
-        <input
-          type="text"
-          id="date"
-          name="date"
-          value={formData.date}
-          onChange={handleInputChange}
-          required
-        />
+        <div className="mb-3">
+          <label htmlFor="type">Type:</label>
+          <input
+            type="text"
+            id="type"
+            name="type"
+            value={formData.type}
+            onChange={handleInputChange}
+            required
+            className="form-control"
+          />
+        </div>
         <br />
-        <label htmlFor="type">Type:</label>
-        <input
-          type="text"
-          id="type"
-          name="type"
-          value={formData.type}
-          onChange={handleInputChange}
-          required
-          className="form-control"
-        />
-        <br />
-
-        <button type="submit">Update Event</button>
+        <div className="mb-3">
+          <button type="submit" className="btn btn-primary">
+            Update Event
+          </button>
+        </div>
       </form>
 
       <div id="message">{message}</div>

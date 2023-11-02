@@ -78,7 +78,7 @@ function Navbar() {
               <div className="iq-navbar-logo d-flex justify-content-between">
                 <a href="index.html">
                   <img src="images/logo.png" className="img-fluid" alt="" />
-                  <span>SocialV</span>
+                  <span>OneZero</span>
                 </a>
                 <div className="iq-menu-bt align-self-center">
                   <div className="wrapper-menu">

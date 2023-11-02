@@ -77,7 +77,11 @@ function CreateEvent() {
             onChange={(e) => setType(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleCreateEvent}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleCreateEvent}
+        >
           Create Event
         </button>
       </form>

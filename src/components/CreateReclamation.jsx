@@ -71,7 +71,11 @@ function CreateReclamation() {
           {/* Use the datetime-local input type to capture the date and time */}
         </div>
 
-        <button type="button" onClick={handleCreateReclamation}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleCreateReclamation}
+        >
           Create Reclamation
         </button>
       </form>

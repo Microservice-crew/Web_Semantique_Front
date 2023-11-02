@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Groups() {
   const [groups, setGroups] = useState([]);
@@ -41,6 +43,23 @@ function Groups() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const generatePDF = () => {
+    // Créez une nouvelle instance de jsPDF
+    const doc = new jsPDF();
+
+    // Définissez le titre du document PDF
+    doc.text("Liste Groups :", 10, 10);
+
+    // Créez le tableau au format PDF
+    doc.autoTable({
+      head: [["name", "date", "capacity"]],
+      body: groups.map((react) => [react.name, react.date, react.capacity]),
+    });
+
+    // Enregistrez ou affichez le document PDF
+    doc.save("list_Groups.pdf");
   };
 
   useEffect(() => {
@@ -102,6 +121,7 @@ function Groups() {
                         <th>Date</th>
                         <th>Update</th>
                         <th>Remove</th>
+                        <th>PDF</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -124,6 +144,14 @@ function Groups() {
                               onClick={() => deleteGroup(group.id)}
                             >
                               Remove
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-sm iq-bg-primary"
+                              onClick={generatePDF}
+                            >
+                              Imprimer PDF
                             </button>
                           </td>
                         </tr>
