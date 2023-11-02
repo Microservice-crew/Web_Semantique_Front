@@ -98,8 +98,6 @@ function Posts() {
     doc.save("list_Posts.pdf");
   };
 
-  
-
   React.useEffect(() => {
     getData();
   }, []);

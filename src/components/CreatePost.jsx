@@ -33,34 +33,55 @@ function CreatePost() {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h2>Create Post</h2>
       <form>
-        <div>
+        <div className="mb-3">
           <label>ID:</label>
-          <input type="number" onChange={(e) => setId(e.target.value)} />
+          <input
+            type="number"
+            className="form-control"
+            onChange={(e) => setId(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="mb-3">
           <label>Nom User:</label>
-          <input type="text" onChange={(e) => setNomUser(e.target.value)} />
+          <input
+            type="text"
+            className="form-control"
+            onChange={(e) => setNomUser(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="mb-3">
           <label>Title:</label>
-          <input type="text" onChange={(e) => setTitle(e.target.value)} />
+          <input
+            type="text"
+            className="form-control"
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="mb-3">
           <label>Contenu :</label>
-          <input type="text" onChange={(e) => setContenu(e.target.value)} />
+          <input
+            type="text"
+            className="form-control"
+            onChange={(e) => setContenu(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="mb-3">
           <label>Date:</label>
           <input
             type="datetime-local"
+            className="form-control"
             onChange={(e) => setDate(e.target.value)}
           />
           {/* Use the datetime-local input type to capture the date and time */}
         </div>
-        <button type="button" onClick={handleCreatePost}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleCreatePost}
+        >
           Create Post
         </button>
       </form>
